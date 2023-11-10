@@ -4,7 +4,7 @@
 turns = read.csv("f1sim-ref-turns.csv")
 right = read.csv("f1sim-ref-right.csv")
 left = read.csv("f1sim-ref-left.csv")
-cars = read.csv("f1sim-data-2023.csv")
+#cars = read.csv("f1sim-data-2023.csv")
 
 #HELPER FUNCTIONS WRITTEN HERE
 badDataFlag <- function(toTestSIDs,toTestLIDs,badSIDs,badLIDs){
@@ -70,6 +70,21 @@ halfwayDist2and3 = sqrt((turns$APEX_X1[2] - turns$APEX_X1[3])^2+(turns$APEX_X1[2
 left$closeToOne <- isCloserThan2(left$c1dist, rep(slDistToApexOne, length(left$c1dist)))
 left$closeToTwo <- isCloserThan2(left$c2dist, rep(halfwayDist2and3, length(left$c2dist)))
 left$inRange <- (left$closeToOne | left$closeToTwo)
+
+
+#leftoutrange = left[which(left$inRange == FALSE),]
+#leftinrange = left[which(left$inRange == TRUE),]
+
+#rm(leftinrange,leftoutrange)
+
+# plot(leftoutrange$WORLDPOSX, leftoutrange$WORLDPOSY, cex = 0.5, asp = 1)
+# points(leftinrange$WORLDPOSX, leftinrange$WORLDPOSY, col = "green", cex = 0.5)
+# #text(113,467,"START")
+# text(445,191,"1",cex = 2)
+# text(439,90,"2",cex = 2)
+# text(797,-393,"3",cex = 2)
+
+#rm(cars, left, right, turns, leftinrange, leftoutrange)
 
 #FILTER DATA TO ONLY TURNS 1 AND 2
 filtLeft = left[which(left$inRange == TRUE),]
@@ -193,9 +208,8 @@ rm(cumsum, distToNext, startLineCoord, x1, x2, y1, y2, i, halfwayDist2and3, slDi
 
 rm(left,right)
 
+write_csv(filtLeft, "filtLeft.csv")
+write_csv(filtRight, "filtRight.csv")
+
+
 print("RUN SUCCESSFULLY: constructingTrackSidesv1.1.R")
-
-
-# #PLOT FOR SANTIY CHECK OF POINTS
-# plot(filtRight$WORLDPOSX, filtRight$WORLDPOSY, cex = .1, asp = 1, col = "blue")
-# points(filtLeft$WORLDPOSX, filtLeft$WORLDPOSY, cex = .1, col = "red")
