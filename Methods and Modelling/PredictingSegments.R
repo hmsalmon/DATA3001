@@ -170,7 +170,7 @@ legend("topright", legend = c("Including Invalid Laps", "Excluding Invalid Laps"
 
 # The above plot revealed that being too fast in segments 34-37 is not good - investigate
 
-plot(filtCars_OnTrack$WORLDPOSX, filtCars_OnTrack$WORLDPOSY, cex = 0.01, xlab = 'WORLDPOSX', ylab = 'WORLDPOSY')
+plot(filtCars$WORLDPOSX, filtCars$WORLDPOSY, cex = 0.01, xlab = 'WORLDPOSX', ylab = 'WORLDPOSY')
 points(segments_grouped_excluding_invalid[[34]]$WORLDPOSX, segments_grouped_excluding_invalid[[34]]$WORLDPOSY, cex = 0.5, col = 'red')
 points(segments_grouped_excluding_invalid[[35]]$WORLDPOSX, segments_grouped_excluding_invalid[[35]]$WORLDPOSY, cex = 0.5, col = 'red')
 points(segments_grouped_excluding_invalid[[36]]$WORLDPOSX, segments_grouped_excluding_invalid[[36]]$WORLDPOSY, cex = 0.5, col = 'red')
@@ -273,6 +273,8 @@ worst_lap_excluding_invalid <-  subset(worst_lap_excluding_invalid, select = -c(
 
 
 # Plot frequencies of laps used
+all_top_10 <- do.call(rbind, top_10_per_seg_excluding_invalid)
+
 Frequencies <- as.data.frame(table(all_top_10$lapID))
 
 names(Frequencies)[names(Frequencies) == "Var1"] <- "LapID"
@@ -302,6 +304,8 @@ plot(best_lap_excluding_invalid$LAP_DISTANCE, best_lap_excluding_invalid$THROTTL
 lines(best_lap_excluding_invalid$LAP_DISTANCE, best_lap_excluding_invalid$BRAKE, col = 'red', lwd = '2')
 legend("topright", legend = c("Throttle", "Brake"), col = c("green", "red"), lwd = 2)
 title(main = 'Optimal Throttle and Brake Pattern')
+
+
 
 # Plotting Best Lateral Position
 plot(best_lap_excluding_invalid$LATERAL, best_lap_excluding_invalid$LAP_DISTANCE, type = 'l', col = 'black', lwd = '2', xlab = 'Lateral Position', ylab = 'Lap Distance')
