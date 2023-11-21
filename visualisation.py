@@ -1,3 +1,5 @@
+# INTERACTIVE CHART - BEST LAP
+
 # Import libraries
 import plotly.express as px
 import plotly.graph_objects as go
@@ -96,6 +98,7 @@ fig1.show()
 # To html
 fig1.write_html("index.html")
 
+'''
 # Plotly plot
 fig2 = px.scatter(worst_lap, x='WORLDPOSX', y='WORLDPOSY', color='LAP_DISTANCE', size='SPEED_KPH', 
                 hover_data={'LAP_DISTANCE': True, 'LAP_TIME': True, 'THROTTLE': True, 'BRAKE': True, 'GEAR': True, 'LATERAL': True, 'SPEED_KPH': True, 'ENGINE_RPM': True, 'STEERING': True},
@@ -179,3 +182,4 @@ fig2.show()
 
 # To html
 fig2.write_html("index1.html")
+'''
